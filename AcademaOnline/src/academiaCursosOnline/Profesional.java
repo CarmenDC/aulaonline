@@ -26,13 +26,9 @@ public class Profesional extends Alumno {
 
 	@Override
 	public String toString() {
-		return "Profesional, empresa=" + empresa + ", nivelPuesto="
-				+ nivelPuesto + " " + super.toString();
+		return super.toString() + " empresa: " + empresa + ", nivelPuesto: "
+				+ nivelPuesto;
 	}
-	
-	
-	
-	
-	
+
 
 }

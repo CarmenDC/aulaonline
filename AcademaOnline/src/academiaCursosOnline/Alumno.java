@@ -14,7 +14,17 @@ public abstract class Alumno implements Identificable {
 	private int edad;
 	
 	private Collection<Curso> matricula=new ArrayList<>();
+	private Collection<Curso> participa=new ArrayList<>();
 	
+	
+	
+	
+	public Collection<Curso> getMatricula() {
+		return matricula;
+	}
+	public Collection<Curso> getParticipa() {
+		return participa;
+	}
 	public int getId() {
 		return id;
 	}
@@ -45,28 +55,58 @@ public abstract class Alumno implements Identificable {
 	}
 	
 	
-	public int calCularPrecioMatricula () {
-		int preciomatricula=0;
-		for(Curso curso : matricula) {
-			preciomatricula += curso.getPrecio();
+	public int calCularPrecioCursosParticipa () {
+		int precioCursosParticipa=0;
+		for(Curso curso : participa) {
+			precioCursosParticipa += curso.getPrecio();
+			if (curso.getSeCertifica()) {
+				precioCursosParticipa += 200;
+			}
 		}
-		return preciomatricula;
+		return precioCursosParticipa;
 	}
 	
 	public void solicitarMatricula() {
 		Random random = new Random();
-		for(int i =0; i<random.nextInt(3); i++) {
-			Curso cursoAlumno= new Curso(random.nextInt(2));
-			if (!matricula.contains(cursoAlumno)) {
-				matricula.add(new Curso(random.nextInt(2)));
+		int numCursosQuierePedir = random.nextInt(4);
+		Boolean estaYa = false;
+//		System.out.println(numCursosQuierePedir);
+		for (int i=0; i<numCursosQuierePedir;i++) {
+			Curso pideCurso = new Curso(random.nextInt(4));
+			pideCurso.setSeCertifica(random.nextInt(2)==0?false:true);
+//			System.out.println(pideCurso);
+			if (matricula.isEmpty()) {
+				matricula.add(pideCurso);
+//				System.out.println(pideCurso);
 			}
+			else {
+				for (Curso curso : matricula) {
+					if (pideCurso.equals(curso)) {
+						estaYa=true;
+					}
+				}
+				if (!estaYa) {
+					matricula.add(pideCurso);
+//					System.out.println(pideCurso);
+				}
+			}
+		}
+
+
+	
+	}
+	
+	public void renunciarCurso (Curso cursoRenuncia) {
+		for (Curso curso : participa) {
+			if (curso.equals(cursoRenuncia)) {
+				participa.remove(curso);
+			}			
 		}
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "Alumno [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + "]";
+		return "Alumno id: " + id + ", nombre: " + nombre + ", apellido " + apellido + ", edad: " + edad  ;
 	}
 	
 	

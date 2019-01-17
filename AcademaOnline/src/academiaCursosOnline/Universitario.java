@@ -18,6 +18,11 @@ public class Universitario extends Alumno{
 		super(nombre, apellidos, edad);
 		universidad = universidadeStrings[numuniversidad];
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " Universidad: " + universidad;
+	}
 	
 	
 

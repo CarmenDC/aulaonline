@@ -1,14 +1,12 @@
 package academiaCursosOnline;
 
-public class Curso implements Identificable {
+public class Curso {
 	
-	private static int identificadorCurso = 0;
 	private static final int PRECIOCERTIFICACION =200; 
 	private static String[] cursos= {"Java","Python","mySQL","JSON"};
 	private static int[] duraciones = {200,150,240,100};
 	private static int[] precios = {350,300,400,200};
 
-	private int id;
 	private int duracion;
 	private int precio;
 	
@@ -39,8 +37,7 @@ public class Curso implements Identificable {
 
 	public Curso(int curso) {
 		super();
-		this.id = identificadorCurso;
-		identificadorCurso++;
+
 		nombreCurso=cursos[curso];
 		duracion=duraciones[curso];
 		precio=precios[curso];
@@ -51,16 +48,39 @@ public class Curso implements Identificable {
 		this.seCertifica = seCertifica;
 	}
 
+
 	@Override
-	public int getId() {
-		return id;
+	public String toString() { 
+		return "Curso " + nombreCurso + ", duracion=" 
+	+ duracion + ", coste=" + precio + ", se quiere certificar=" + seCertifica;
 	}
 
 	@Override
-	public String toString() {
-		return "Curso id=" + id + " nombreCurso=" + nombreCurso + ", duracion=" 
-	+ duracion + ", coste=" + precio + ", se quiere certificar=" + seCertifica;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombreCurso == null) ? 0 : nombreCurso.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Curso other = (Curso) obj;
+		if (nombreCurso == null) {
+			if (other.nombreCurso != null)
+				return false;
+		} else if (!nombreCurso.equals(other.nombreCurso))
+			return false;
+		return true;
+	}
+	
+	
 	
 
 }
